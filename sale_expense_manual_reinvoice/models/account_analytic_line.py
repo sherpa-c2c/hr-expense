@@ -10,7 +10,8 @@ class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
     expense_id = fields.Many2one(
-        related="move_line_id.expense_id",
+        comodel_name="hr.expense",
+        compute="_compute_expense_id",
         store=True,
     )
     manual_reinvoice = fields.Boolean(
@@ -25,7 +26,12 @@ class AccountAnalyticLine(models.Model):
         help="Technical field to hide it from pending to reinvoice list."
     )
 
-    @api.depends("product_id")
+    @api.depends("move_line_id.expense_id")
+    def _compute_expense_id(self):
+        for rec in self:
+            rec.expense_id = rec.move_line_id.expense_id
+
+    @api.depends("expense_id.product_id.expense_mode")
     def _compute_manual_reinvoice(self):
         for rec in self:
             rec.manual_reinvoice = rec.expense_id.product_id.expense_mode == "manual"
