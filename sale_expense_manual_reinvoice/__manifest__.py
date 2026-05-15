@@ -11,7 +11,7 @@
     "website": "https://github.com/OCA/hr-expense",
     "license": "AGPL-3",
     "category": "Human Resources",
-    "depends": ["sale_expense"],
+    "depends": ["sale_expense", "hr_expense", "analytic"],
     "data": [
         "views/account_analytic_line.xml",
         "views/hr_expense.xml",
