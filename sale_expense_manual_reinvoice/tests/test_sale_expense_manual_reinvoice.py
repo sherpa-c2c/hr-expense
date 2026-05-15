@@ -50,7 +50,7 @@ class TestReInvoiceManual(TestExpenseCommon):
                 "name": "Expense",
                 "date": fields.Date.today(),
                 "product_id": cls.product_expense_manual.id,
-                "unit_amount": cls.product_expense_manual.lst_price,
+                "price_unit": cls.product_expense_manual.lst_price,
                 "sale_order_id": cls.order.id,
             }
         )
@@ -113,7 +113,7 @@ class TestReInvoiceManual(TestExpenseCommon):
     def test_expense_auto_reinvoice(self):
         """Test that the normal flow still works"""
         self.expense.product_id = self.product_expense_auto
-        self.expense.unit_amount = 1500.0  # amount resets after product change
+        self.expense.price_unit = 1500.0  # amount resets after product change
         self.expense_sheet.approve_expense_sheets()
         self.expense_sheet.action_sheet_move_create()
         self.assertFalse(self.expense.manual_reinvoice)

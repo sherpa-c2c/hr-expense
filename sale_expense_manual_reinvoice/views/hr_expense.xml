@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="hr_expense_view_search" model="ir.ui.view">
         <field name="model">hr.expense</field>
         <field name="inherit_id" ref="hr_expense.hr_expense_view_search" />
@@ -61,17 +60,8 @@
                     domain="[('state', '=', 'sale'), ('company_id', '=', company_id)]"
                 />
                 <field name="account_id" readonly="1" optional="hide" />
-                <button
-                    name="action_get_attachment_view"
-                    type="object"
-                    icon="fa-paperclip"
-                    aria-label="View Attachments"
-                    title="View Attachments"
-                    class="float-right pr-0"
-                />
-                <field name="attachment_number" class="text-left pl-0" nolabel="1" />
                 <field
-                    name="unit_amount"
+                    name="price_unit"
                     readonly="1"
                     optional="hide"
                     widget="monetary"
@@ -91,11 +81,12 @@
                 <field name="total_amount" readonly="1" optional="show" />
                 <field name="company_currency_id" readonly="1" invisible="1" />
                 <field
-                    name="total_amount_company"
+                    name="total_amount_currency"
                     optional="show"
                     groups="base.group_multi_currency"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
                 />
-                <field name="is_refused" invisible="True" />
                 <field name="manual_reinvoice_done" invisible="True" />
                 <field name="manual_reinvoice_discarded" invisible="True" />
             </list>
@@ -135,5 +126,4 @@
         parent="hr_expense.menu_hr_expense_root"
         sequence="2"
     />
-
 </odoo>
