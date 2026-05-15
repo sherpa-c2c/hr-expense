@@ -17,7 +17,7 @@
                 <field
                     name="expense_mode"
                     widget="radio"
-                    attrs="{'invisible': [('expense_policy', 'in', (False, 'no'))]}"
+                    invisible="expense_policy in (False, 'no')"
                 />
             </field>
         </field>
