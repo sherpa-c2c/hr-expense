@@ -33,7 +33,10 @@ class HrExpense(models.Model):
                 "manual_reinvoice_done",
                 "manual_reinvoice_discarded",
             ]:
-                rec[fname] = fields.first(rec.analytic_line_ids)[fname]
+                if rec.analytic_line_ids:
+                    rec[fname] = rec.analytic_line_ids[0][fname]
+                else:
+                    rec[fname] = False
 
     def _compute_analytic_account_id(self):
         # OVERRIDE to not recompute account_analytic_id if it's already posted
